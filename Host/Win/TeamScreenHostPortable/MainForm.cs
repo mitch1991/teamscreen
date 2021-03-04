@@ -21,7 +21,7 @@ namespace TeamScreenHostPortable
 
         protected Driver.Win.Mouse mouse = new Driver.Win.Mouse();
         protected Driver.Win.Keyboard keyboard = new Driver.Win.Keyboard();
-        protected Driver.Win.Display display = new Driver.Win.Display();
+        protected Driver.Win.Display display = new Driver.Win.Display(new Size(640,480));
 
         delegate void SetSystemIdAndPasswordCallback(String SystemId, String Password);
 

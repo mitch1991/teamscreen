@@ -1,20 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceProcess;
+using System.Text;
 using System.Threading;
-using ConsoleApp;
-using LiteNetLib;
-using Network.Thread;
+using System.Threading.Tasks;
 
-namespace TeamScreen.Broker.ConsoleApp
+namespace BrokerService
 {
-    public class Program
+    static class Program
     {
-
-        public static void Main()
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        static void Main()
         {
-            string ServiceName = $"Screen Share Broker";
-
-
 
 #if !RunAsService
 
@@ -22,7 +22,7 @@ namespace TeamScreen.Broker.ConsoleApp
 
             BrokerService brokerService = new BrokerService
             {
-                ServiceName = ServiceName,
+                ServiceName = "Screen Share Broker",
                 AutoLog = true,
                 CanStop = true
             };
@@ -41,11 +41,6 @@ namespace TeamScreen.Broker.ConsoleApp
             ServicesToRun = new ServiceBase[]
             {
                 new BrokerService()
-                {
-                    ServiceName =ServiceName ,
-                    AutoLog = true,
-                    CanStop = true
-                }
             };
             ServiceBase.Run(ServicesToRun);
 #endif

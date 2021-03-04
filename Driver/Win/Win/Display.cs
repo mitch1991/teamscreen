@@ -21,20 +21,30 @@ namespace Driver.Win
 
         RawImage img = null;
 
+        public Size Resolution { get; set; }
+
+        public Display(Size resolution)
+        {
+            Resolution = resolution;
+        }
+
         public Display()
         {
-            
+
         }
 
         protected override System.Drawing.Rectangle getBounds()
         {
-            return new System.Drawing.Rectangle(0,0,width,height);
+            //if (Resolution.Width != 0 && Resolution.Height != 0)
+            //    return new System.Drawing.Rectangle(0, 0, Resolution.Width, Resolution.Height);
+            //else
+                return new System.Drawing.Rectangle(0, 0, width, height);
         }
 
         protected override byte[] createScreenShot()
         {
             img = screenWork.createScreenshot(true);
-            
+
             this.width = img.Dimensions.Width;
             this.height = img.Dimensions.Height;
             var msout = new MemoryStream();
@@ -53,12 +63,13 @@ namespace Driver.Win
                                         System.Windows.Forms.Screen.PrimaryScreen.Bounds.Size,
                                         CopyPixelOperation.SourceCopy);
 
-
+            if (Resolution.Width != 0 && Resolution.Height != 0)
+                bmpScreenshot = new Bitmap(bmpScreenshot, Resolution);
             bmpScreenshot.Save(msout, ImageFormat.Jpeg);
             return msout.ToArray();
-            
+
         }
 
-        
+
     }
 }
